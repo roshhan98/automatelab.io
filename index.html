@@ -80,10 +80,15 @@ nav {
 }
 
 .hero h1 {
-    font-size:3.5rem;
-    background:linear-gradient(135deg,#06B6D4,#8B5CF6);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+    font-size: 3.5rem;
+    line-height: 1.2;
+    padding-right: 0.15em;   /* PREVENT LAST LETTER CLIP */
+    background: linear-gradient(135deg, #06B6D4, #8B5CF6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #8B5CF6; /* fallback for browsers that fail */
+    overflow: visible;
 }
 
 .hero .tagline {
@@ -246,9 +251,47 @@ footer {
 }
 
 /* RESPONSIVE */
-@media(max-width:768px){
-    .menu-toggle{display:block;}
-    .nav-links{display:none;}
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #0F172A;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.5rem 0;
+    }
+
+    .hero h1 {
+        font-size: 2.6rem;
+    }
+
+    .hero .tagline {
+        font-size: 1.2rem;
+    }
+
+    .hero .subtitle {
+        font-size: 1rem;
+    }
 }
 </style>
 </head>
@@ -346,14 +389,17 @@ onsubmit="sendWhatsApp()">
 </footer>
 
 <script>
-function toggleMenu(){
-document.getElementById("navLinks").classList.toggle("active");
+function toggleMenu() {
+    const navLinks = document.getElementById("navLinks");
+    navLinks.classList.toggle("active");
 }
 
-function sendWhatsApp(){
-const msg=document.querySelector("textarea").value;
-window.open("https://wa.me/918552805193?text="+encodeURIComponent(msg),"_blank");
-}
+/* Close menu when link is clicked (mobile UX fix) */
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        document.getElementById("navLinks").classList.remove("active");
+    });
+});
 </script>
 
 </body>
