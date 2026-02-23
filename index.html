@@ -237,6 +237,14 @@ nav {
     border-radius:10px;
     border:none;
     margin-bottom:1.5rem;
+
+    .contact-form input {
+    width:100%;
+    padding:1rem;
+    border-radius:10px;
+    border:none;
+    margin-bottom:1.5rem;
+}
 }
 
 .contact-form button {
@@ -396,8 +404,11 @@ footer {
 
 <form class="contact-form"
 action="https://formspree.io/f/xkobkjdd"
-method="POST"
-onsubmit="sendWhatsApp()">
+method="POST">
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="email" name="email" placeholder="Your Email" required>
+<input type="tel" name="phone" placeholder="Your Phone Number (Optional)">
+<input type="hidden" name="_replyto" value="">
 <textarea name="message" placeholder="Write your enquiry here..." required></textarea>
 <button type="submit">Submit Enquiry</button>
 </form>
